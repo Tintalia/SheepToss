@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SheepToss
 {
-    class Ammo : Item
+    class Projectile : Item, IMovable
     {
     }
 }

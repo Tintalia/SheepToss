@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace SheepToss
 {
-    class Boulder : Ammo
+    enum NPCProjectileType
     {
+        Arrow,
+        Rock
     }
 }

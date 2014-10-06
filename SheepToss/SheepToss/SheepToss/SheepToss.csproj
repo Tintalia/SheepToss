@@ -41,23 +41,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ammo.cs" />
+    <Compile Include="Projectile.cs" />
     <Compile Include="Arrow.cs" />
     <Compile Include="BlackSheep.cs" />
     <Compile Include="Bonus.cs" />
     <Compile Include="Boulder.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="Dragon.cs" />
-    <Compile Include="DragonAbilities.cs" />
     <Compile Include="GameInfo.cs" />
     <Compile Include="GoldenSheep.cs" />
     <Compile Include="ILivable.cs" />
     <Compile Include="IMovable.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="NightFury.cs" />
+    <Compile Include="NonPlayerCharacter.cs" />
     <Compile Include="Obstacle.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Salesman.cs" />
     <Compile Include="Sheep.cs" />
     <Compile Include="Sheppard.cs" />
     <Compile Include="Skill.cs" />

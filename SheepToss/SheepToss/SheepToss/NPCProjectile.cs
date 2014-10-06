@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace SheepToss
 {
-    class Sheppard : NonPlayerCharacter, ILivable
+    class NPCProjectile : Projectile
     {
+        public NPCProjectileType type { get; set; }
     }
 }

@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace SheepToss
 {
-    public interface IDragonAbilities
+    enum DragonProjectileType
     {
-        public abstract void InitiateAttack();
+        Teeth,
+        Gas,
+        Fire,
+        Soundwave,
+        Mist
+
     }
 }

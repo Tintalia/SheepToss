@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace SheepToss
 {
-    class Arrow : Ammo
+    class DragonProjectile : Projectile
     {
+        public DragonProjectileType type { get; set; }
+        public int Attack { get; set; }
     }
 }

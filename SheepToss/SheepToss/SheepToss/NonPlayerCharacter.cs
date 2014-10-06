@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SheepToss
 {
-    class Sheppard : NonPlayerCharacter, ILivable
+    class NonPlayerCharacter : Character
     {
     }
 }
