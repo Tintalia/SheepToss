@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public class NightFury : Character
+public class NightFury : Dragon
 {
     void Update()
     {
