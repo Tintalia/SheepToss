@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class Character : MonoBehaviour
+public abstract class Character : GameObject, IMovable
 {
-    public int health;
-    protected abstract void Move();
+    public abstract void Move();
 }

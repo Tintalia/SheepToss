@@ -2,10 +2,11 @@
 using System.Collections;
 using System;
 
-class Sheppard : NonPlayerCharacter
+class Sheppard : NonPlayerCharacter, ILivable
 {
-    protected override void Move()
-    {
+    public int HP { get; set; }
 
+    public override void Move()
+    {
     }
 }

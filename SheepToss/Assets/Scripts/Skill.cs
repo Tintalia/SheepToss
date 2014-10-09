@@ -2,6 +2,6 @@
 using System.Collections;
 using System;
 
-class Skill
+class Skill : GameObject
 {
 }

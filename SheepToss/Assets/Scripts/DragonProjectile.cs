@@ -6,4 +6,8 @@ class DragonProjectile : Projectile
 {
     public DragonProjectileType type { get; set; }
     public int Attack { get; set; }
+
+    public override void Move()
+    {
+    }
 }

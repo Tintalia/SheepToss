@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 
-class Projectile : Item
+abstract class Projectile : Item, IMovable
 {
+    public abstract void Move();
 }

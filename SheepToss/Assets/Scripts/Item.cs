@@ -2,6 +2,6 @@
 using System.Collections;
 using System;
 
-public abstract class Item
+public abstract class Item : GameObject
 {
 }

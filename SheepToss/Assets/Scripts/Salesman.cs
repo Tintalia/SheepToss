@@ -4,7 +4,7 @@ using System;
 
 class Salesman : NonPlayerCharacter
 {
-    protected override void Move()
+    public override void Move()
     {
 
     }

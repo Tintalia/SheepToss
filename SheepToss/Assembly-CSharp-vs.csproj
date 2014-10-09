@@ -53,9 +53,12 @@
      <Compile Include="Assets\Scripts\DragonProjectile.cs" />
      <Compile Include="Assets\Scripts\DragonProjectileType.cs" />
      <Compile Include="Assets\Scripts\GameInfo.cs" />
+     <Compile Include="Assets\Scripts\GameObject.cs" />
      <Compile Include="Assets\Scripts\GoldenSheep.cs" />
+     <Compile Include="Assets\Scripts\Hookfang.cs" />
      <Compile Include="Assets\Scripts\ICollectable.cs" />
      <Compile Include="Assets\Scripts\ILivable.cs" />
+     <Compile Include="Assets\Scripts\IMovable.cs" />
      <Compile Include="Assets\Scripts\Item.cs" />
      <Compile Include="Assets\Scripts\NPCProjectile.cs" />
      <Compile Include="Assets\Scripts\NPCProjectileType.cs" />
@@ -67,6 +70,7 @@
      <Compile Include="Assets\Scripts\Sheep.cs" />
      <Compile Include="Assets\Scripts\Sheppard.cs" />
      <Compile Include="Assets\Scripts\Skill.cs" />
+     <Compile Include="Assets\Scripts\TerrainObstacle.cs" />
      <Compile Include="Assets\Scripts\Tower.cs" />
      <Compile Include="Assets\Scripts\WhiteSheep.cs" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendOneOne.shader" />

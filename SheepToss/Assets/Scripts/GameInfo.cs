@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-class GameInfo
+class GameInfo : GameObject
 {
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }

@@ -1,6 +1,0 @@
-c:\users\martin\documents\visual studio 2013\Projects\SheepToss\SheepToss\bin\Debug\SheepToss.exe.config
-c:\users\martin\documents\visual studio 2013\Projects\SheepToss\SheepToss\obj\Debug\SheepToss.csprojResolveAssemblyReference.cache
-c:\users\martin\documents\visual studio 2013\Projects\SheepToss\SheepToss\bin\Debug\SheepToss.exe
-c:\users\martin\documents\visual studio 2013\Projects\SheepToss\SheepToss\bin\Debug\SheepToss.pdb
-c:\users\martin\documents\visual studio 2013\Projects\SheepToss\SheepToss\obj\Debug\SheepToss.exe
-c:\users\martin\documents\visual studio 2013\Projects\SheepToss\SheepToss\obj\Debug\SheepToss.pdb

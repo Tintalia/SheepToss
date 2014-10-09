@@ -9,5 +9,4 @@ enum DragonProjectileType
     Fire,
     Soundwave,
     Mist
-
 }

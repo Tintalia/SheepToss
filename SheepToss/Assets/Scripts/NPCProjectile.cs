@@ -5,4 +5,8 @@ using System;
 class NPCProjectile : Projectile
 {
     public NPCProjectileType type { get; set; }
+
+    public override void Move()
+    {
+    }
 }
