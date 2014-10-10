@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\BackGroundScript.cs" />
      <Compile Include="Assets\Scripts\BlackSheep.cs" />
      <Compile Include="Assets\Scripts\Bonus.cs" />
      <Compile Include="Assets\Scripts\Character.cs" />
