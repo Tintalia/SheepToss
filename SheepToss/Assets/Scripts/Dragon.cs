@@ -13,23 +13,9 @@ public abstract class Dragon : Character, ILivable, IMovable
     public int Stealth { get; set; }
     public int HP { get; set; }
 
-    //public void Update()
-    //{
-    //    Move();
-    //}
     public override void Move()
     {
-        //    var horz = Input.GetAxis("Horizontal");
-        //    var vert = Input.GetAxis("Vertical");
-        //    var futurePosition = transform.position + (transform.right * horz + transform.up * vert) * 10 * Time.deltaTime;
-        //    Debug.Log(transform.right * horz * Time.deltaTime);
-        //    transform.position = futurePosition;
-    }
-    public float speed=10;
-    public Boundary boundary;
 
-    void FixedUpdate()
-    {
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
@@ -42,12 +28,39 @@ public abstract class Dragon : Character, ILivable, IMovable
             Mathf.Clamp(rigidbody2D.position.y, boundary.yMin, boundary.yMax),
             0.0f
         );
+    }
 
+    public float speed = 10;
+    public Boundary boundary;
+
+    void Start()
+    {
+        this.HP = 600;
+    }
+
+    void FixedUpdate()
+    {
+        this.Move();
+        this.UpdateHP();
+    }
+
+    private void UpdateHP()
+    {
+        if (this.HP >= 3)
+        {
+            this.HP -= 3;
+        }
+        else
+        {
+            Destroy(gameObject);//here goes the falling dragon animation
+            Time.timeScale = 0.0f;
+        }
+        Debug.Log(this.HP);
     }
 }
 
 [System.Serializable]
 public class Boundary
 {
-    public float xMin=-28f, xMax=-13f, yMin=-1f, yMax=5f;
+    public float xMin = -28f, xMax = -13f, yMin = -1f, yMax = 5f;
 }
