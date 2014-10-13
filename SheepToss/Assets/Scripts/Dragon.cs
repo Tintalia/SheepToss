@@ -3,6 +3,9 @@ using System.Collections;
 
 public abstract class Dragon : Character, ILivable, IMovable
 {
+    private float nextFire;
+    private readonly int maxHP = 1800;
+    //other private fields to be added
     public int Attack { get; set; } //Projectile attack value + bonuses (if there are any)
     public int Speed { get; set; }
     public int Armor { get; set; }
@@ -12,6 +15,15 @@ public abstract class Dragon : Character, ILivable, IMovable
     public int JawStrength { get; set; }
     public int Stealth { get; set; }
     public int HP { get; set; }
+
+    public float speed = 10;
+    public Boundary boundary;
+    public Transform shot;
+    public Transform shotSpawn;
+    public float rateOfFire;
+    Rect box = new Rect(10, 10, 100, 20);
+    private Texture2D background;
+    private Texture2D foreground;
 
     public override void Move()
     {
@@ -30,12 +42,27 @@ public abstract class Dragon : Character, ILivable, IMovable
         );
     }
 
-    public float speed = 10;
-    public Boundary boundary;
-
     void Start()
     {
-        this.HP = 600;
+
+        this.HP = this.maxHP;
+        background = new Texture2D(1, 1, TextureFormat.RGB24, false);
+        foreground = new Texture2D(1, 1, TextureFormat.RGB24, false);
+
+        background.SetPixel(0, 0, Color.red);
+        foreground.SetPixel(0, 0, Color.green);
+
+        background.Apply();
+        foreground.Apply();
+    }
+
+    void Update()
+    {
+        if (Input.GetButton("Fire1") & Time.time > nextFire)
+        {
+            nextFire = Time.time + rateOfFire;
+            Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+        }
     }
 
     void FixedUpdate()
@@ -46,16 +73,22 @@ public abstract class Dragon : Character, ILivable, IMovable
 
     private void UpdateHP()
     {
-        if (this.HP >= 3)
-        {
-            this.HP -= 3;
-        }
-        else
+        this.HP -= 1;
+        if (this.HP < 0)
         {
             Destroy(gameObject);//here goes the falling dragon animation
             Time.timeScale = 0.0f;
         }
-        Debug.Log(this.HP);
+    }
+
+    void OnGUI()
+    {
+        GUI.BeginGroup(box);
+        {
+            GUI.DrawTexture(new Rect(0, 0, box.width, box.height), background, ScaleMode.StretchToFill);
+            GUI.DrawTexture(new Rect(0, 0, box.width * this.HP / this.maxHP, box.height), foreground, ScaleMode.StretchToFill);
+        }
+        GUI.EndGroup(); ;
     }
 }
 
