@@ -4,7 +4,7 @@ using System;
 
 class Sheppard : NonPlayerCharacter, ILivable
 {
-    public int HP { get; set; }
+    public float HP { get; set; }
 
     public override void Move()
     {

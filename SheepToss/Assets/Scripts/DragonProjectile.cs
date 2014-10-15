@@ -6,7 +6,7 @@ class DragonProjectile : Projectile
 {
     public DragonProjectileType type { get; set; }
     public int Attack { get; set; }
-    public float speed = 500;
+    public float speed = 10;
 
     public void OnCollisionEnter2D(Collision2D other)
     {
@@ -19,6 +19,6 @@ class DragonProjectile : Projectile
 
     void Start()
     {
-        rigidbody2D.velocity = transform.right * speed * Time.deltaTime;
+        rigidbody2D.velocity = transform.right * speed;
     }
 }

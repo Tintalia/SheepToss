@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Text.RegularExpressions;
 
 public abstract class Dragon : Character, ILivable, IMovable
 {
     private float nextFire;
-    private readonly int maxHP = 1800;
+    private readonly float maxHP = 500f;
     //other private fields to be added
     public int Attack { get; set; } //Projectile attack value + bonuses (if there are any)
     public int Speed { get; set; }
@@ -14,7 +15,9 @@ public abstract class Dragon : Character, ILivable, IMovable
     public int Venom { get; set; }
     public int JawStrength { get; set; }
     public int Stealth { get; set; }
-    public int HP { get; set; }
+    public float HP { get; set; }
+    public int Coins { get; set; }
+    public int Exp { get; set; }
 
     public float speed = 10;
     public Boundary boundary;
@@ -73,7 +76,7 @@ public abstract class Dragon : Character, ILivable, IMovable
 
     private void UpdateHP()
     {
-        this.HP -= 1;
+        this.HP -= 0.8f;
         if (this.HP < 0)
         {
             Destroy(gameObject);//here goes the falling dragon animation
@@ -89,6 +92,18 @@ public abstract class Dragon : Character, ILivable, IMovable
             GUI.DrawTexture(new Rect(0, 0, box.width * this.HP / this.maxHP, box.height), foreground, ScaleMode.StretchToFill);
         }
         GUI.EndGroup(); ;
+    }
+
+    void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.ToString().Contains("Package"))
+        {
+            this.HP += 100;
+        }
+        if (other.gameObject.GetComponent<Sheep>() != null)
+        {
+            this.Coins += other.gameObject.GetComponent<Sheep>().coins;
+        }
     }
 }
 
