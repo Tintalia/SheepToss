@@ -47,7 +47,6 @@ public abstract class Dragon : Character, ILivable, IMovable
 
     void Start()
     {
-
         this.HP = this.maxHP;
         background = new Texture2D(1, 1, TextureFormat.RGB24, false);
         foreground = new Texture2D(1, 1, TextureFormat.RGB24, false);
@@ -103,6 +102,10 @@ public abstract class Dragon : Character, ILivable, IMovable
         if (other.gameObject.GetComponent<Sheep>() != null)
         {
             this.Coins += other.gameObject.GetComponent<Sheep>().coins;
+        }
+        if (other.gameObject.GetComponent<NPCProjectile>() != null)
+        {
+            this.HP -= other.gameObject.GetComponent<NPCProjectile>().Attack;
         }
     }
 }
