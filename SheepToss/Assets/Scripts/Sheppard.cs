@@ -11,14 +11,30 @@ class Sheppard : NonPlayerCharacter, ILivable
     private float nextFire;
     public override void Move()
     {
-       
+
     }
     public void Update()
     {
+        if (this.HP < 1)
+        {
+            Destroy(this.gameObject);
+            if (UnityEngine.GameObject.FindGameObjectWithTag("Player") != null)
+            {
+                UnityEngine.GameObject.FindGameObjectWithTag("Player").GetComponent<NightFury>().Exp += 100;
+            }
+        }
         if (Time.time > nextFire)
         {
-            nextFire = Time.time + rateOfFire;
-            Instantiate(arrow, arrowSpawn.position, arrowSpawn.rotation);
+            if (UnityEngine.GameObject.FindGameObjectWithTag("Player").gameObject.rigidbody2D.position.y - 4.2f <= this.rigidbody2D.position.y)
+            {
+                nextFire = Time.time + rateOfFire;
+                Instantiate(arrow, arrowSpawn.position, arrowSpawn.rotation);
+            }
         }
+    }
+
+    void Start()
+    {
+        this.HP = 100;
     }
 }

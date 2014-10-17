@@ -10,6 +10,10 @@ class DragonProjectile : Projectile
 
     public void OnCollisionEnter2D(Collision2D other)
     {
+        if (other.gameObject.GetComponent<Sheppard>() != null)
+        {
+            other.gameObject.GetComponent<Sheppard>().HP -= this.Attack;
+        }
         Destroy(this.gameObject);
     }
 
@@ -19,6 +23,7 @@ class DragonProjectile : Projectile
 
     void Start()
     {
+        this.Attack = 50;
         rigidbody2D.velocity = transform.right * speed;
     }
 }
