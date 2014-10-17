@@ -25,10 +25,11 @@ public abstract class Dragon : Character, IMovable
         this.Speed = 10;
         this.HP = this.maxHP;
         this.RateOfFire = 0.25f;
+        this.Attack = this.Shot.GetComponent<DragonProjectile>().Damage;
     }
 
     #region Public Members
-    public int Attack //Projectile attack value + bonuses (if there are any)
+    public int Attack
     {
         get
         {

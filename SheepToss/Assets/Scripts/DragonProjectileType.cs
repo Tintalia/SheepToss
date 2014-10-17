@@ -4,9 +4,7 @@ using System;
 
 enum DragonProjectileType
 {
-    Teeth,
-    Gas,
+    LightningBall,
     Fire,
-    Soundwave,
-    Mist
+    Water
 }

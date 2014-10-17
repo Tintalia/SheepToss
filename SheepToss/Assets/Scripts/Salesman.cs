@@ -6,6 +6,5 @@ class Salesman : NonPlayerCharacter
 {
     public override void Move()
     {
-
     }
 }

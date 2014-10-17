@@ -53,7 +53,6 @@
      <Compile Include="Assets\Scripts\Dragon.cs" />
      <Compile Include="Assets\Scripts\DragonProjectile.cs" />
      <Compile Include="Assets\Scripts\DragonProjectileType.cs" />
-     <Compile Include="Assets\Scripts\GameInfo.cs" />
      <Compile Include="Assets\Scripts\GameObject.cs" />
      <Compile Include="Assets\Scripts\GoldenSheep.cs" />
      <Compile Include="Assets\Scripts\Hookfang.cs" />
@@ -62,10 +61,12 @@
      <Compile Include="Assets\Scripts\IMovable.cs" />
      <Compile Include="Assets\Scripts\Item.cs" />
      <Compile Include="Assets\Scripts\MainMenuController.cs" />
+     <Compile Include="Assets\Scripts\Menu.cs" />
      <Compile Include="Assets\Scripts\MenuHeroes.cs" />
      <Compile Include="Assets\Scripts\NPCProjectile.cs" />
      <Compile Include="Assets\Scripts\NPCProjectileType.cs" />
      <Compile Include="Assets\Scripts\NightFury.cs" />
+     <Compile Include="Assets\Scripts\NightFuryInfo.cs" />
      <Compile Include="Assets\Scripts\NonPlayerCharacter.cs" />
      <Compile Include="Assets\Scripts\Obstacle.cs" />
      <Compile Include="Assets\Scripts\OnExit.cs" />
@@ -78,7 +79,6 @@
      <Compile Include="Assets\Scripts\Sheppard.cs" />
      <Compile Include="Assets\Scripts\Skill.cs" />
      <Compile Include="Assets\Scripts\TerrainObstacle.cs" />
-     <Compile Include="Assets\Scripts\ToothlessPage.cs" />
      <Compile Include="Assets\Scripts\Tower.cs" />
      <Compile Include="Assets\Scripts\Utilities.cs" />
      <Compile Include="Assets\Scripts\WhiteSheep.cs" />

@@ -2,27 +2,64 @@
 using System.Collections;
 using System;
 
-abstract class Sheep : Item, ICollectable
+public abstract class Sheep : Item, ICollectable, IMovable
 {
-    public int Coins { get; set; } // The number life points it adds to the dragon after being collected
-    public float speed = 20;
+    private int coins;
+    private float speed;
+
+    public Sheep()
+    {
+        this.Speed = 20;
+    }
+
+    public int Coins
+    {
+        get
+        {
+            return this.coins;
+        }
+        set
+        {
+            Utilities.ValidateInt(value, "Coins");
+            this.coins = value;
+        }
+    }
+
+    public float Speed
+    {
+        get
+        {
+            return this.speed;
+        }
+        set
+        {
+            Utilities.ValidateFloat(value, "Speed");
+            this.speed = value;
+        }
+    }
 
     public void OnCollisionEnter2D(Collision2D other)
     {
         Destroy(this.gameObject);
     }
 
-    void Start()
+    public void Start()
     {
-        rigidbody2D.velocity = -transform.right * speed;
+        this.gameObject.rigidbody2D.velocity = -transform.right * speed;
     }
 
-    void Update()
+    public void Update()
     {
-        rigidbody2D.position += new Vector2(0,0.04f);
-        if (rigidbody2D.position.x < -16)
+        this.Move();
+    }
+
+    public void Move()
+    {
+        this.gameObject.rigidbody2D.position += new Vector2(0, 0.04f);
+
+        if (this.gameObject.rigidbody2D.position.x < -16)
         {
-            rigidbody2D.gravityScale = 0.5f;
+            this.gameObject.rigidbody2D.gravityScale = 0.5f;
         }
     }
 }

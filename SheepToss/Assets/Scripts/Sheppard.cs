@@ -4,30 +4,84 @@ using System;
 
 class Sheppard : NonPlayerCharacter, ILivable
 {
-    public float HP { get; set; }
+    private float hp;
+    private float rateOfFire;
+    private float nextFire;
+    private UnityEngine.GameObject target;
+
+    public Sheppard()
+    {
+        this.HP = 100;
+        this.RateOfFire = 0.4f;
+    }
+
+    public float HP
+    {
+        get
+        {
+            return this.hp;
+        }
+        set
+        {
+            Utilities.ValidateFloat(value, "HP");
+            this.hp = value;
+        }
+    }
+
+    public float RateOfFire
+    {
+        get
+        {
+            return this.rateOfFire;
+        }
+        set
+        {
+            Utilities.ValidateFloat(value, "Rate of fire");
+            this.rateOfFire = value;
+        }
+    }
+
     public Transform arrow;
     public Transform arrowSpawn;
-    public float rateOfFire;
-    private float nextFire;
+
+    public UnityEngine.GameObject Target
+    {
+        get
+        {
+            return this.target;
+        }
+        set
+        {
+            Utilities.ValidateObject(value, "Target");
+            this.target = value;
+        }
+    }
+
+    public void Start()
+    {
+        this.Target = UnityEngine.GameObject.FindGameObjectWithTag("Player");
+    }
+
     public override void Move()
     {
-
     }
-    public void Update()
+
+    private void UpdateHP()
     {
         if (this.HP < 1)
         {
             Destroy(this.gameObject);
-            if (UnityEngine.GameObject.FindGameObjectWithTag("Player") != null)
-            {
-                UnityEngine.GameObject.FindGameObjectWithTag("Player").GetComponent<NightFury>().Exp += 100;
-            }
+            this.Target.GetComponent<NightFury>().HP += 100;
         }
+    }
+
+    private void ShootArrow()
+    {
         if (Time.time > nextFire)
         {
-            if (UnityEngine.GameObject.FindGameObjectWithTag("Player").gameObject != null)
+            if (this.Target.gameObject != null)
             {
-                if (UnityEngine.GameObject.FindGameObjectWithTag("Player").gameObject.rigidbody2D.position.y - 4.2f <= this.rigidbody2D.position.y)
+                if (this.Target.gameObject.rigidbody2D.position.y - 4.2f <= this.rigidbody2D.position.y)
                 {
                     nextFire = Time.time + rateOfFire;
                     Instantiate(arrow, arrowSpawn.position, arrowSpawn.rotation);
@@ -36,8 +90,9 @@ class Sheppard : NonPlayerCharacter, ILivable
         }
     }
 
-    void Start()
+    public void Update()
     {
-        this.HP = 100;
+        this.UpdateHP();
+        this.ShootArrow();
     }
 }
