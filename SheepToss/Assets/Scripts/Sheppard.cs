@@ -25,10 +25,13 @@ class Sheppard : NonPlayerCharacter, ILivable
         }
         if (Time.time > nextFire)
         {
-            if (UnityEngine.GameObject.FindGameObjectWithTag("Player").gameObject.rigidbody2D.position.y - 4.2f <= this.rigidbody2D.position.y)
+            if (UnityEngine.GameObject.FindGameObjectWithTag("Player").gameObject != null)
             {
-                nextFire = Time.time + rateOfFire;
-                Instantiate(arrow, arrowSpawn.position, arrowSpawn.rotation);
+                if (UnityEngine.GameObject.FindGameObjectWithTag("Player").gameObject.rigidbody2D.position.y - 4.2f <= this.rigidbody2D.position.y)
+                {
+                    nextFire = Time.time + rateOfFire;
+                    Instantiate(arrow, arrowSpawn.position, arrowSpawn.rotation);
+                }
             }
         }
     }

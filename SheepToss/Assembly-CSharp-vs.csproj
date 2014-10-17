@@ -46,14 +46,10 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\OnExit.cs" />
-     <Compile Include="Assets\Package.cs" />
-     <Compile Include="Assets\PackageSpawn.cs" />
      <Compile Include="Assets\Scripts\BackGroundScript.cs" />
      <Compile Include="Assets\Scripts\BlackSheep.cs" />
      <Compile Include="Assets\Scripts\Bonus.cs" />
      <Compile Include="Assets\Scripts\Character.cs" />
-     <Compile Include="Assets\Scripts\DestroyByBoundary.cs" />
      <Compile Include="Assets\Scripts\Dragon.cs" />
      <Compile Include="Assets\Scripts\DragonProjectile.cs" />
      <Compile Include="Assets\Scripts\DragonProjectileType.cs" />
@@ -72,16 +68,20 @@
      <Compile Include="Assets\Scripts\NightFury.cs" />
      <Compile Include="Assets\Scripts\NonPlayerCharacter.cs" />
      <Compile Include="Assets\Scripts\Obstacle.cs" />
+     <Compile Include="Assets\Scripts\OnExit.cs" />
+     <Compile Include="Assets\Scripts\Package.cs" />
+     <Compile Include="Assets\Scripts\PackageSpawn.cs" />
      <Compile Include="Assets\Scripts\Projectile.cs" />
      <Compile Include="Assets\Scripts\Salesman.cs" />
      <Compile Include="Assets\Scripts\Sheep.cs" />
+     <Compile Include="Assets\Scripts\SheepSpawn.cs" />
      <Compile Include="Assets\Scripts\Sheppard.cs" />
      <Compile Include="Assets\Scripts\Skill.cs" />
      <Compile Include="Assets\Scripts\TerrainObstacle.cs" />
      <Compile Include="Assets\Scripts\ToothlessPage.cs" />
      <Compile Include="Assets\Scripts\Tower.cs" />
+     <Compile Include="Assets\Scripts\Utilities.cs" />
      <Compile Include="Assets\Scripts\WhiteSheep.cs" />
-     <Compile Include="Assets\SheepSpawn.cs" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendOneOne.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\NoiseEffectShaderRGB.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_DepthOfField\SeparableWeightedBlurDof34.shader" />
@@ -152,7 +152,7 @@
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlurAndFlares.shader" />
      <None Include="Assets\Standard Assets\Image Effects (Pro Only)\_Sources\Shaders\_BloomAndFlares\BlendForBloom.shader" />
  <Reference Include="Assembly-UnityScript-firstpass">
- <HintPath>C:/Users/Martin/Documents/GitHub/SheepToss/SheepToss/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
+ <HintPath>C:/Users/Martin/Documents/GitHub/TEMP/SheepToss/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -4,7 +4,7 @@ using System;
 
 abstract class Sheep : Item, ICollectable
 {
-    public int coins; // The number life points it adds to the dragon after being collected
+    public int Coins { get; set; } // The number life points it adds to the dragon after being collected
     public float speed = 20;
 
     public void OnCollisionEnter2D(Collision2D other)

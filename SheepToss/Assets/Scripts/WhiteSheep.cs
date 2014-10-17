@@ -6,6 +6,6 @@ class WhiteSheep : Sheep
 {
     public WhiteSheep()
     {
-        this.coins = 10;
+        this.Coins = 10;
     }
 }

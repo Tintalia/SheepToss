@@ -2,116 +2,248 @@
 using System.Collections;
 using System.Text.RegularExpressions;
 
-public abstract class Dragon : Character, ILivable, IMovable
+public abstract class Dragon : Character, IMovable
 {
+    #region Private Members
     private float nextFire;
-    private readonly float maxHP = 500f;
-    //other private fields to be added
-    public int Attack { get; set; } //Projectile attack value + bonuses (if there are any)
-    public int Speed { get; set; }
-    public int Armor { get; set; }
-    public int Firepower { get; set; }
-    public int ShotLimit { get; set; }
-    public int Venom { get; set; }
-    public int JawStrength { get; set; }
-    public int Stealth { get; set; }
-    public float HP { get; set; }
-    public int Coins { get; set; }
-    public int Exp { get; set; }
+    private readonly int maxHP = 500;
+    private int attack;
+    private int armor;
+    private int speed;
+    private int hp;
+    private int coins;
+    private int exp;
+    private float rateOfFire;
 
-    public float speed = 10;
-    public Boundary boundary;
-    public Transform shot;
-    public Transform shotSpawn;
-    public float rateOfFire;
-    Rect box = new Rect(10, 10, 100, 20);
-    private Texture2D background;
-    private Texture2D foreground;
+    private Rect hpBarContainer = new Rect(10, 10, 100, 20);
+    private Texture2D hpBarBackground;
+    private Texture2D hpBarforeground;
+    #endregion
+
+    public Dragon()
+    {
+        this.Speed = 10;
+        this.HP = this.maxHP;
+        this.RateOfFire = 0.25f;
+    }
+
+    #region Public Members
+    public int Attack //Projectile attack value + bonuses (if there are any)
+    {
+        get
+        {
+            return this.attack;
+        }
+        set
+        {
+            Utilities.ValidateInt(value, "Attack");
+            this.attack = value;
+        }
+    }
+
+    public int Speed
+    {
+        get
+        {
+            return this.speed;
+        }
+        set
+        {
+            Utilities.ValidateInt(value, "Speed");
+            this.speed = value;
+        }
+    }
+
+    public int Armor
+    {
+        get
+        {
+            return this.armor;
+        }
+        set
+        {
+            Utilities.ValidateInt(value, "Armor");
+            this.armor = value;
+        }
+    }
+
+    public int HP
+    {
+        get
+        {
+            return this.hp;
+        }
+        set
+        {
+            Utilities.ValidateInt(value, "HP");
+            this.hp = value;
+        }
+    }
+
+    public int Coins
+    {
+        get
+        {
+            return this.coins;
+        }
+        set
+        {
+            Utilities.ValidateInt(value, "Coins");
+            this.coins = value;
+        }
+    }
+
+    public int Exp
+    {
+        get
+        {
+            return this.exp;
+        }
+        set
+        {
+            Utilities.ValidateInt(value, "Exp");
+            this.exp = value;
+        }
+    }
+
+    public float RateOfFire
+    {
+        get
+        {
+            return this.rateOfFire;
+        }
+        set
+        {
+            Utilities.ValidateFloat(value, "Rate of fire");
+            this.rateOfFire = value;
+        }
+    }
+
+    public float NextFire
+    {
+        get
+        {
+            return this.nextFire;
+        }
+        set
+        {
+            Utilities.ValidateFloat(value, "Next Fire");
+            this.nextFire = value;
+        }
+    }
+
+    public Boundary Boundary;
+    public Transform Shot;
+    public Transform ShotSpawn;
+    #endregion
 
     public override void Move()
     {
-
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
 
         Vector3 movement = new Vector3(moveHorizontal, moveVertical, 0.0f);
-        rigidbody2D.velocity = movement * speed;
+        this.rigidbody2D.velocity = movement * this.Speed;
 
-        rigidbody2D.position = new Vector3
-        (
-            Mathf.Clamp(rigidbody2D.position.x, boundary.xMin, boundary.xMax),
-            Mathf.Clamp(rigidbody2D.position.y, boundary.yMin, boundary.yMax),
-            0.0f
-        );
+        float xClamp = Mathf.Clamp(this.gameObject.rigidbody2D.position.x, this.Boundary.xMin, this.Boundary.xMax);
+        float yClamp = Mathf.Clamp(this.gameObject.rigidbody2D.position.y, this.Boundary.yMin, this.Boundary.yMax);
+
+        this.gameObject.rigidbody2D.position = new Vector3(xClamp, yClamp, 0.0f);
     }
 
-    void Start()
+    public void Start()
     {
-        this.HP = this.maxHP;
-        background = new Texture2D(1, 1, TextureFormat.RGB24, false);
-        foreground = new Texture2D(1, 1, TextureFormat.RGB24, false);
-
-        background.SetPixel(0, 0, Color.red);
-        foreground.SetPixel(0, 0, Color.green);
-
-        background.Apply();
-        foreground.Apply();
+        InstantiateHPBar();
+        DefineBoundaries();
     }
 
-    void Update()
+    private void Fire()
     {
-        if (Input.GetButton("Fire1") & Time.time > nextFire)
+        if (Input.GetButton("Fire1") & Time.time > this.NextFire)
         {
-            nextFire = Time.time + rateOfFire;
-            Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+            this.NextFire = Time.time + this.RateOfFire;
+            Instantiate(this.Shot, this.ShotSpawn.position, this.ShotSpawn.rotation);
         }
     }
 
-    void FixedUpdate()
+    public void Update()
     {
-        this.Move();
         this.UpdateHP();
+        this.Move();
+        this.Fire();
     }
 
     private void UpdateHP()
     {
-        this.HP -= 0.8f;
-        if (this.HP < 0)
+        this.HP -= 1;
+
+        if (this.HP > this.maxHP)
         {
-            Destroy(gameObject);//here goes the falling dragon animation
+            this.HP = this.maxHP;
+        }
+
+        if (this.HP < 1)
+        {
+            Destroy(this.gameObject);// here goes the falling dragon animation
             Time.timeScale = 0.0f;
         }
     }
 
-    void OnGUI()
+    void OnGUI()// to be extracted in a utility class along with the hp bar components
     {
-        GUI.BeginGroup(box);
+        GUI.BeginGroup(hpBarContainer);
         {
-            GUI.DrawTexture(new Rect(0, 0, box.width, box.height), background, ScaleMode.StretchToFill);
-            GUI.DrawTexture(new Rect(0, 0, box.width * this.HP / this.maxHP, box.height), foreground, ScaleMode.StretchToFill);
+            GUI.DrawTexture(new Rect(0, 0, hpBarContainer.width, hpBarContainer.height), hpBarBackground, ScaleMode.StretchToFill);
+            GUI.DrawTexture(new Rect(0, 0, hpBarContainer.width * this.HP / this.maxHP, hpBarContainer.height), hpBarforeground, ScaleMode.StretchToFill);
         }
         GUI.EndGroup(); ;
     }
 
-    void OnCollisionEnter2D(Collision2D other)
+    private void InstantiateHPBar()
     {
-        if (other.gameObject.ToString().Contains("Package"))
+        hpBarBackground = new Texture2D(1, 1, TextureFormat.RGB24, false);
+        hpBarforeground = new Texture2D(1, 1, TextureFormat.RGB24, false);
+
+        hpBarBackground.SetPixel(0, 0, Color.red);
+        hpBarforeground.SetPixel(0, 0, Color.green);
+
+        hpBarBackground.Apply();
+        hpBarforeground.Apply();
+    }
+
+    private void DefineBoundaries()
+    {
+        this.Boundary.xMin = -28;
+        this.Boundary.xMax = -12;
+        this.Boundary.yMin = -3;
+        this.Boundary.yMax = 5;
+    }
+
+    public void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.GetComponent<Package>() != null)
         {
-            this.HP += 100;
+            Package collectedPackage = other.gameObject.GetComponent<Package>();
+            this.HP += collectedPackage.LifePoints;
         }
         if (other.gameObject.GetComponent<Sheep>() != null)
         {
-            this.Coins += other.gameObject.GetComponent<Sheep>().coins;
+            Sheep collectedSheep = other.gameObject.GetComponent<Sheep>();
+            this.Coins += collectedSheep.Coins;
         }
         if (other.gameObject.GetComponent<NPCProjectile>() != null)
         {
-            this.HP -= other.gameObject.GetComponent<NPCProjectile>().Attack;
+            NPCProjectile encounteredProjectile = other.gameObject.GetComponent<NPCProjectile>();
+            this.HP -= encounteredProjectile.Damage;
         }
     }
 }
 
 [System.Serializable]
-public class Boundary
+public struct Boundary
 {
-    public float xMin = -28f, xMax = -13f, yMin = -1f, yMax = 5f;
+    public float xMin;
+    public float xMax;
+    public float yMin;
+    public float yMax;
 }

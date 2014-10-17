@@ -3,10 +3,10 @@ using System.Collections;
 
 public class BackGroundScript : MonoBehaviour
 {
+    private Vector3 startPosition;
+
     public float scrollSpeed;
     public float tileSizeZ;
-
-    private Vector3 startPosition;
 
     void Start()
     {

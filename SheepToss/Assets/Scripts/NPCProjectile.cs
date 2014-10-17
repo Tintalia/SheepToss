@@ -6,7 +6,7 @@ class NPCProjectile : Projectile
 {
     public NPCProjectileType type { get; set; }
     public Transform Target;
-    public int Attack { get; set; }
+    public int Damage { get; set; }
     public float speed = 10;
     private float distanceTravelled;
     static int arrowsInstantiated = 0;
@@ -63,6 +63,6 @@ class NPCProjectile : Projectile
 
         this.rigidbody2D.rotation += (UnityEngine.GameObject.FindGameObjectWithTag("Player").rigidbody2D.position.y - 0.97f) * 9;
 
-        this.Attack = 40;
+        this.Damage = 40;
     }
 }

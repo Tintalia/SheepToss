@@ -4,7 +4,8 @@ using System;
 
 class GoldenSheep : Sheep
 {
-    public GoldenSheep(){
-        this.coins=50;
+    public GoldenSheep()
+    {
+        this.Coins = 50;
     }
 }
