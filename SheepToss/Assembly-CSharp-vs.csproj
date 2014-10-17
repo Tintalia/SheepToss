@@ -65,6 +65,8 @@
      <Compile Include="Assets\Scripts\ILivable.cs" />
      <Compile Include="Assets\Scripts\IMovable.cs" />
      <Compile Include="Assets\Scripts\Item.cs" />
+     <Compile Include="Assets\Scripts\MainMenuController.cs" />
+     <Compile Include="Assets\Scripts\MenuHeroes.cs" />
      <Compile Include="Assets\Scripts\NPCProjectile.cs" />
      <Compile Include="Assets\Scripts\NPCProjectileType.cs" />
      <Compile Include="Assets\Scripts\NightFury.cs" />
@@ -76,6 +78,7 @@
      <Compile Include="Assets\Scripts\Sheppard.cs" />
      <Compile Include="Assets\Scripts\Skill.cs" />
      <Compile Include="Assets\Scripts\TerrainObstacle.cs" />
+     <Compile Include="Assets\Scripts\ToothlessPage.cs" />
      <Compile Include="Assets\Scripts\Tower.cs" />
      <Compile Include="Assets\Scripts\WhiteSheep.cs" />
      <Compile Include="Assets\SheepSpawn.cs" />
