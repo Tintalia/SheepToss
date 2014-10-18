@@ -6,7 +6,7 @@ public abstract class Dragon : Character, IMovable
 {
     #region Private Members
     private float nextFire;
-    private readonly int maxHP = 500;
+    private readonly int maxHP = 1000;
     private int attack;
     private int armor;
     private int speed;
@@ -19,13 +19,15 @@ public abstract class Dragon : Character, IMovable
     private Texture2D hpBarBackground;
     private Texture2D hpBarforeground;
     #endregion
-
+    public GUIText scoreText;   // Added ----------------------------------------------------
+    public GUIText expText;     // Added -----------------------------------------------------
+    public Font font;            // Added -----------------------------------------------------
     public Dragon()
     {
         this.Speed = 10;
         this.HP = this.maxHP;
         this.RateOfFire = 0.25f;
-        this.Attack = this.Shot.GetComponent<DragonProjectile>().Damage;
+       // this.Attack = this.Shot.GetComponent<DragonProjectile>().Damage;
     }
 
     #region Public Members
@@ -104,6 +106,7 @@ public abstract class Dragon : Character, IMovable
         {
             Utilities.ValidateInt(value, "Exp");
             this.exp = value;
+            UpdateExp();                                            // Added -----------------------------------------
         }
     }
 
@@ -156,6 +159,8 @@ public abstract class Dragon : Character, IMovable
     {
         InstantiateHPBar();
         DefineBoundaries();
+        UpdateScore(); // Added ------------------------------------------------------------------
+        UpdateExp();    // Added -------------------------------------------------------------------
     }
 
     private void Fire()
@@ -205,8 +210,8 @@ public abstract class Dragon : Character, IMovable
         hpBarBackground = new Texture2D(1, 1, TextureFormat.RGB24, false);
         hpBarforeground = new Texture2D(1, 1, TextureFormat.RGB24, false);
 
-        hpBarBackground.SetPixel(0, 0, Color.red);
-        hpBarforeground.SetPixel(0, 0, Color.green);
+        hpBarBackground.SetPixel(0, 0, Color.white);
+        hpBarforeground.SetPixel(0, 0, Color.black);
 
         hpBarBackground.Apply();
         hpBarforeground.Apply();
@@ -231,12 +236,29 @@ public abstract class Dragon : Character, IMovable
         {
             Sheep collectedSheep = other.gameObject.GetComponent<Sheep>();
             this.Coins += collectedSheep.Coins;
+            UpdateScore();                                                                   // Added ------------------
         }
         if (other.gameObject.GetComponent<NPCProjectile>() != null)
         {
             NPCProjectile encounteredProjectile = other.gameObject.GetComponent<NPCProjectile>();
             this.HP -= encounteredProjectile.Damage;
         }
+    }
+
+    public void UpdateScore()                                   // Added -----------------------------------------
+    {
+       // Font myFont = (Font)Resources.Load("../../Fonts/BradBunR", typeof(Font));
+        //scoreText.font = myFont;
+        scoreText.color = Color.black;
+        scoreText.fontSize = 24;
+        scoreText.text = "Score: " + this.Coins;
+    }
+
+    public void UpdateExp()                                   // Added -------------------------------------------
+    {
+       expText.color = Color.black;
+        expText.fontSize = 24;
+        expText.text = "Exp: " + this.Exp;
     }
 }
 

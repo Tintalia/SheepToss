@@ -72,6 +72,7 @@ class Sheppard : NonPlayerCharacter, ILivable
         {
             Destroy(this.gameObject);
             this.Target.GetComponent<NightFury>().HP += 100;
+            this.Target.GetComponent<NightFury>().Exp += 100; // Added -----------------------------------------------
         }
     }
 
