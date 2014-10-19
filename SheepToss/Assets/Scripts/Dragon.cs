@@ -6,7 +6,7 @@ public abstract class Dragon : Character, IMovable
 {
     #region Private Members
     private float nextFire;
-    private readonly int maxHP = 1000;
+    private readonly int maxHP = 2000;
     private int attack;
     private int armor;
     private int speed;
