@@ -6,7 +6,7 @@ public abstract class Dragon : Character, IMovable
 {
     #region Private Members
     private float nextFire;
-    private readonly int maxHP = 2000;
+    private readonly int maxHP = 1000;
     private int attack;
     private int armor;
     private int speed;
@@ -152,7 +152,7 @@ public abstract class Dragon : Character, IMovable
         float xClamp = Mathf.Clamp(this.gameObject.rigidbody2D.position.x, this.Boundary.xMin, this.Boundary.xMax);
         float yClamp = Mathf.Clamp(this.gameObject.rigidbody2D.position.y, this.Boundary.yMin, this.Boundary.yMax);
 
-        this.gameObject.rigidbody2D.position = new Vector3(xClamp, yClamp, 0.0f);
+        this.gameObject.rigidbody2D.position = new Vector2(xClamp, yClamp);
     }
 
     public void Start()
@@ -241,6 +241,11 @@ public abstract class Dragon : Character, IMovable
         if (other.gameObject.GetComponent<NPCProjectile>() != null)
         {
             NPCProjectile encounteredProjectile = other.gameObject.GetComponent<NPCProjectile>();
+            this.HP -= encounteredProjectile.Damage;
+        }
+        if (other.gameObject.GetComponent<BossProjectile>() != null)
+        {
+            BossProjectile encounteredProjectile = other.gameObject.GetComponent<BossProjectile>();
             this.HP -= encounteredProjectile.Damage;
         }
     }

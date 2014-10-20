@@ -70,6 +70,8 @@ class Sheppard : NonPlayerCharacter, ILivable
     {
         if (this.HP < 1)
         {
+            UnityEngine.GameObject.FindGameObjectWithTag("SheppardSpawn").GetComponent<SheppardSpawn>().NextSpawn
+                = Time.time + UnityEngine.GameObject.FindGameObjectWithTag("SheppardSpawn").GetComponent<SheppardSpawn>().RateOfSpawn;
             Destroy(this.gameObject);
             this.Target.GetComponent<NightFury>().HP += 100;
             this.Target.GetComponent<NightFury>().Exp += 100; // Added -----------------------------------------------

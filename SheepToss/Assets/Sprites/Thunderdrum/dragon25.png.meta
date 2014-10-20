@@ -1,7 +1,8 @@
 fileFormatVersion: 2
-guid: 17a1b937d239be04b919cbc809ab3b29
+guid: 9cc6f40e37d160545b29338a5d28b571
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: dragon25
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0

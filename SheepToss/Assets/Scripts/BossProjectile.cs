@@ -1,16 +1,17 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
 
-class DragonProjectile : Projectile
+class BossProjectile : Projectile
 {
     private int damage;
     private int speed;
     private DragonProjectileType dragonProjectileType;
 
-    public DragonProjectile()
+    public BossProjectile()
     {
         this.Speed = 10;
+        this.dragonProjectileType = DragonProjectileType.LightningBall;
+
         CalculateDamage();
     }
 
@@ -69,18 +70,18 @@ class DragonProjectile : Projectile
 
     void Start()
     {
-        rigidbody2D.velocity = transform.right * speed;
+        rigidbody2D.velocity = -transform.right * speed;
     }
 
     private void CalculateDamage()
     {
-        switch (DragonProjectileType)
+        switch (this.DragonProjectileType)
         {
             case DragonProjectileType.LightningBall:
                 this.Damage = 50;
                 break;
             case DragonProjectileType.Fire:
-                this.Damage = 90;
+                this.Damage = 45;
                 break;
             case DragonProjectileType.Water:
                 this.Damage = 45;

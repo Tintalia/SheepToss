@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-abstract class NonPlayerCharacter : Character
+public abstract class NonPlayerCharacter : Character
 {
     public override void Move() { }
 }
