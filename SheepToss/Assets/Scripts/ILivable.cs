@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
 
-interface ILivable
+public interface ILivable
 {
     float HP { get; set; }
 }

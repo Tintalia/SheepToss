@@ -59,7 +59,7 @@ class Sheppard : NonPlayerCharacter, ILivable, IDestructable
 
     public void Start()
     {
-        this.Target = UnityEngine.GameObject.FindGameObjectWithTag("Player");
+        this.Target = GameInfo.dragon;
     }
 
     public override void Move()
@@ -70,11 +70,10 @@ class Sheppard : NonPlayerCharacter, ILivable, IDestructable
     {
         if (this.HP < 1)
         {
-            UnityEngine.GameObject.FindGameObjectWithTag("SheppardSpawn").GetComponent<SheppardSpawn>().NextSpawn
-                = Time.time + UnityEngine.GameObject.FindGameObjectWithTag("SheppardSpawn").GetComponent<SheppardSpawn>().RateOfSpawn;
+            GameInfo.sheppardSpawn.NextSpawn = Time.time + GameInfo.sheppardSpawn.RateOfSpawn;
             this.Destroy();
             this.Target.GetComponent<NightFury>().HP += 100;
-            this.Target.GetComponent<NightFury>().Exp += 100; // Added -----------------------------------------------
+            this.Target.GetComponent<NightFury>().Exp += 100;
         }
     }
 

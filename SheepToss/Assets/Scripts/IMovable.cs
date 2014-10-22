@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System;
 
-interface IMovable
+public interface IMovable
 {
     void Move();
 }

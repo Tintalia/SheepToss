@@ -56,6 +56,7 @@
      <Compile Include="Assets\Scripts\Dragon.cs" />
      <Compile Include="Assets\Scripts\DragonProjectile.cs" />
      <Compile Include="Assets\Scripts\DragonProjectileType.cs" />
+     <Compile Include="Assets\Scripts\GameInfo.cs" />
      <Compile Include="Assets\Scripts\GameObject.cs" />
      <Compile Include="Assets\Scripts\GoldenSheep.cs" />
      <Compile Include="Assets\Scripts\HelpButton.cs" />

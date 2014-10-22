@@ -93,14 +93,14 @@ public class Boss : NonPlayerCharacter, IMovable, IDestructable
 
     public override void Move()
     {
-        if (UnityEngine.GameObject.FindGameObjectWithTag("Player") != null)
+        if (GameInfo.dragon != null)
         {
 
-            if (this.gameObject.rigidbody2D.position.y - 0.5f < (UnityEngine.GameObject.FindGameObjectWithTag("Player").gameObject.rigidbody2D.position.y)
-                && (this.gameObject.rigidbody2D.position.y + 0.5f > (UnityEngine.GameObject.FindGameObjectWithTag("Player").gameObject.rigidbody2D.position.y)))
+            if (this.gameObject.rigidbody2D.position.y - 0.5f < (GameInfo.dragon.gameObject.rigidbody2D.position.y)
+                && (this.gameObject.rigidbody2D.position.y + 0.5f > (GameInfo.dragon.gameObject.rigidbody2D.position.y)))
             {
             }
-            else if (this.gameObject.rigidbody2D.position.y < UnityEngine.GameObject.FindGameObjectWithTag("Player").gameObject.rigidbody2D.position.y)
+            else if (this.gameObject.rigidbody2D.position.y < GameInfo.dragon.gameObject.rigidbody2D.position.y)
             {
                 this.gameObject.rigidbody2D.position += new Vector2(0, 0.1f);
             }
@@ -116,8 +116,7 @@ public class Boss : NonPlayerCharacter, IMovable, IDestructable
         if (this.HP < 1)
         {
             this.Destroy();
-            UnityEngine.GameObject.FindGameObjectWithTag("Player").GetComponent<NightFury>().HP +=
-                UnityEngine.GameObject.FindGameObjectWithTag("Player").GetComponent<NightFury>().MaxHP;
+            GameInfo.nightFury.HP = GameInfo.nightFury.MaxHP;
         }
     }
 
