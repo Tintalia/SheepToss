@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-class BlackSheep : Sheep
+public class BlackSheep : Sheep
 {
     public BlackSheep()
     {

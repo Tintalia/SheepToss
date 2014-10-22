@@ -46,5 +46,4 @@ public static class Utilities
             throw new ArgumentNullException(name, "The value can't be null");
         }
     }
-
 }

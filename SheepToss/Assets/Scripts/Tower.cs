@@ -2,6 +2,6 @@
 using System.Collections;
 using System;
 
-class Tower : Obstacle
+public class Tower : Obstacle
 {
 }

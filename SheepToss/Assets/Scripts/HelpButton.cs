@@ -3,7 +3,6 @@ using System.Collections;
 
 public class HelpButton : MonoBehaviour
 {
-
     private bool hideWindow = false;
     public Texture texture;
     public Texture coinStar;
@@ -23,7 +22,7 @@ public class HelpButton : MonoBehaviour
     {
         GUI.backgroundColor = Color.clear;
         GUI.Button(new Rect(xCoin, yCoin, widthCoin, heightCoin), coinStar);
-
+		
         if (GUI.Button(new Rect(xHelpButton, yHelpButton, widthHelpButton, heightHelpButton), texture))
         {
             //When button is pressed it toggles the hideWindow boolean
@@ -46,9 +45,9 @@ public class HelpButton : MonoBehaviour
             windowRect = new Rect(0, 0, widthWindowRect, heightWindowRect);
             //GUI.Box(new Rect(0, 0, Screen.width - 20, Screen.height - 20), "Menu");
             windowRect = GUI.Window(0, windowRect, DoMyWindow, "Help");
-
         }
     }
+	
     public void DoMyWindow(int windowID)
     {
         GUI.Label(new Rect(10, 10, Screen.width - 20, Screen.height - 20), "Lorem Ipsum is simply dummy text of the printing and typesetting industry." +
@@ -58,7 +57,6 @@ public class HelpButton : MonoBehaviour
         "unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem " +
            " Ipsum passages, and more recently with " +
         "desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.");
-
     }
 }
 

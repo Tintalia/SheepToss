@@ -60,6 +60,7 @@ class DragonProjectile : Projectile, IDamageCalculatable
             Sheppard sheppardHit = other.gameObject.GetComponent<Sheppard>();
             sheppardHit.HP -= this.Damage;
         }
+		
         Destroy(this.gameObject);
     }
 

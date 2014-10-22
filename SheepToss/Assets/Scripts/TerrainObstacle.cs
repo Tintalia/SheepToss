@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-class TerrainObstacle : Obstacle
+public class TerrainObstacle : Obstacle
 {
 }

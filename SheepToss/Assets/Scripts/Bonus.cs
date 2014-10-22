@@ -2,6 +2,6 @@
 using System.Collections;
 using System;
 
-class Bonus : GameObject
+public class Bonus : GameObject
 {
 }

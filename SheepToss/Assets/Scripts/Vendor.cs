@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class Vendor : MonoBehaviour
 {
-
     private bool hideWindow = false;
     public Texture texture;
     public Rect windowRect;
@@ -36,6 +35,7 @@ public class Vendor : MonoBehaviour
             {
                 Debug.Log("Has purchased!");
             }
+			
             GUI.backgroundColor = Color.black;
             windowRect = new Rect(0, 0, Screen.width - 20, Screen.height - 20);
             windowRect = GUI.Window(0, windowRect, DoMyWindow, "Shop");
@@ -57,6 +57,7 @@ public class Vendor : MonoBehaviour
                 text = "You purchased " + stone + " stones!!!";
             }
         }
+		
         GUI.Label(new Rect(10, 10, Screen.width - 20, Screen.height - 20), text);
     }
 }

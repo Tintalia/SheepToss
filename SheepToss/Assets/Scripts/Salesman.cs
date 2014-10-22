@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-class Salesman : NonPlayerCharacter
+public class Salesman : NonPlayerCharacter
 {
     public override void Move()
     {

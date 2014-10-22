@@ -19,7 +19,9 @@ public abstract class Dragon : Character, IMovable, IDestructable
     private Rect hpBarContainer = new Rect(10, 10, 100, 20);
     private Texture2D hpBarBackground;
     private Texture2D hpBarforeground;
+	
     #endregion
+	
     public GUIText scoreText;
     public GUIText expText;
     public Font font;
@@ -116,7 +118,6 @@ public abstract class Dragon : Character, IMovable, IDestructable
         {
             return this.stones;
         }
-
         set
         {
             Utilities.ValidateInt(value, "Stones");
@@ -220,7 +221,6 @@ public abstract class Dragon : Character, IMovable, IDestructable
         if (Time.timeScale > 0)
         {
             this.HP -= 1;
-
             if (this.HP > this.maxHP)
             {
                 this.HP = this.maxHP;
@@ -273,17 +273,20 @@ public abstract class Dragon : Character, IMovable, IDestructable
                 Package collectedPackage = other.gameObject.GetComponent<Package>();
                 this.HP += collectedPackage.LifePoints;
             }
+			
             if (other.gameObject.GetComponent<Sheep>() != null)
             {
                 Sheep collectedSheep = other.gameObject.GetComponent<Sheep>();
                 this.Coins += collectedSheep.Coins;
                 UpdateScore();
             }
+			
             if (other.gameObject.GetComponent<NPCProjectile>() != null)
             {
                 NPCProjectile encounteredProjectile = other.gameObject.GetComponent<NPCProjectile>();
                 this.HP -= encounteredProjectile.Damage;
             }
+			
             if (other.gameObject.GetComponent<BossProjectile>() != null)
             {
                 BossProjectile encounteredProjectile = other.gameObject.GetComponent<BossProjectile>();
