@@ -24,10 +24,19 @@ public class MenuHeroes : Menu
 
     private bool hideWindowToothless = false;
     private bool hideWindowHookfang = false;
+    private float widthWindowRect = Screen.width - 20;
+    private float heightWindowRect = Screen.height -20;
+    private float widthTexture = Screen.width / 2;
+    private float heightTexture = Screen.height;
+    private float xStartButton = Screen.width / 2;
+    private float yStartButton = Screen.height / 2 + 100;
+    private float widthStartButton = 200;
+    private float heightStartButton = 50;
     public Rect windowRectToothless;
     public Rect windowRectHookfang;
     public Texture2D toothlessInfo;
     public Texture2D hookfangInfo;
+            
 
     public override void OnGUI()
     {
@@ -65,17 +74,13 @@ public class MenuHeroes : Menu
         GUI.backgroundColor = Color.clear;
         if (hideWindowToothless)
         {
-            GUI.backgroundColor = Color.clear;
-            windowRectToothless = new Rect(0, 0, Screen.width - 20, Screen.height - 20);
-            //GUI.Box(new Rect(0, 0, Screen.width - 20, Screen.height - 20), "Menu");
+            windowRectToothless = new Rect(0, 0, widthWindowRect, heightWindowRect);
             windowRectToothless = GUI.Window(0, windowRectToothless, DoMyWindow, "Toothless");
         }
 
         if (hideWindowHookfang)
         {
-            GUI.backgroundColor = Color.clear;
-            windowRectHookfang = new Rect(0, 0, Screen.width - 20, Screen.height - 20);
-            // GUI.Box(new Rect(0, 0, Screen.width - 20, Screen.height - 20), "Menu");
+            windowRectHookfang = new Rect(0, 0, widthWindowRect, heightWindowRect);
             windowRectHookfang = GUI.Window(1, windowRectHookfang, DoMyWindow, "Hookfang");
         }
     }
@@ -85,24 +90,22 @@ public class MenuHeroes : Menu
         GUI.backgroundColor = Color.clear;
         if (id == 0)
         {
-            GUI.Button(new Rect(0, 0, Screen.width / 2, Screen.height), toothlessInfo);
-            GUI.backgroundColor = Color.black;
-            if (GUI.Button(new Rect(Screen.width / 2, Screen.height / 2 + 100, 200, 50), "Start"))
-            {
-                Application.LoadLevel(3);
-            }
-
+            GUI.Button(new Rect(0, 0, widthTexture, heightTexture), toothlessInfo);
+            Loadleve(3);
         }
         else
         {
-            GUI.backgroundColor = Color.clear;
-            GUI.Button(new Rect(0, 0, Screen.width / 2, Screen.height), hookfangInfo);
-            GUI.backgroundColor = Color.black;
-            if (GUI.Button(new Rect(Screen.width / 2, Screen.height / 2 + 100, 200, 50), "Start"))
-            {
-                Application.LoadLevel(3);
-            }
+            GUI.Button(new Rect(0, 0, widthTexture, heightTexture), hookfangInfo);
+            Loadleve(3);
         }
-        
+    }
+
+    private void Loadleve(int numberScene)
+    {
+        GUI.backgroundColor = Color.black;
+        if (GUI.Button(new Rect(xStartButton, yStartButton, widthStartButton, heightStartButton), "Start"))
+        {
+            Application.LoadLevel(numberScene);
+        }
     }
 }

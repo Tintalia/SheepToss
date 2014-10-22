@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-class Sheppard : NonPlayerCharacter, ILivable
+class Sheppard : NonPlayerCharacter, ILivable, IDestructable
 {
     private float hp;
     private float rateOfFire;
@@ -72,7 +72,7 @@ class Sheppard : NonPlayerCharacter, ILivable
         {
             UnityEngine.GameObject.FindGameObjectWithTag("SheppardSpawn").GetComponent<SheppardSpawn>().NextSpawn
                 = Time.time + UnityEngine.GameObject.FindGameObjectWithTag("SheppardSpawn").GetComponent<SheppardSpawn>().RateOfSpawn;
-            Destroy(this.gameObject);
+            this.Destroy();
             this.Target.GetComponent<NightFury>().HP += 100;
             this.Target.GetComponent<NightFury>().Exp += 100; // Added -----------------------------------------------
         }
@@ -91,6 +91,11 @@ class Sheppard : NonPlayerCharacter, ILivable
                 }
             }
         }
+    }
+
+    public void Destroy()
+    {
+        Destroy(this.gameObject);
     }
 
     public void Update()

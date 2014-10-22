@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-enum DragonProjectileType
+public enum DragonProjectileType
 {
     LightningBall,
     Fire,

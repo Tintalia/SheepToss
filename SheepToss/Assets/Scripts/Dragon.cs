@@ -2,11 +2,11 @@
 using System.Collections;
 using System.Text.RegularExpressions;
 
-public abstract class Dragon : Character, IMovable
+public abstract class Dragon : Character, IMovable, IDestructable
 {
     #region Private Members
     private float nextFire;
-    private readonly int maxHP = 1000;
+    private int maxHP;
     private int attack;
     private int armor;
     private int speed;
@@ -14,20 +14,22 @@ public abstract class Dragon : Character, IMovable
     private int coins;
     private int exp;
     private float rateOfFire;
+    private int stones;
 
     private Rect hpBarContainer = new Rect(10, 10, 100, 20);
     private Texture2D hpBarBackground;
     private Texture2D hpBarforeground;
     #endregion
-    public GUIText scoreText;   // Added ----------------------------------------------------
-    public GUIText expText;     // Added -----------------------------------------------------
-    public Font font;            // Added -----------------------------------------------------
+    public GUIText scoreText;
+    public GUIText expText;
+    public Font font;
+
     public Dragon()
     {
         this.Speed = 10;
-        this.HP = this.maxHP;
+        this.MaxHP = 2000;
+        this.HP = this.MaxHP;
         this.RateOfFire = 0.25f;
-       // this.Attack = this.Shot.GetComponent<DragonProjectile>().Damage;
     }
 
     #region Public Members
@@ -41,6 +43,19 @@ public abstract class Dragon : Character, IMovable
         {
             Utilities.ValidateInt(value, "Attack");
             this.attack = value;
+        }
+    }
+
+    public int MaxHP
+    {
+        get
+        {
+            return this.maxHP;
+        }
+        private set
+        {
+            Utilities.ValidateInt(value, "Max HP");
+            this.maxHP = value;
         }
     }
 
@@ -78,7 +93,6 @@ public abstract class Dragon : Character, IMovable
         }
         set
         {
-            Utilities.ValidateInt(value, "HP");
             this.hp = value;
         }
     }
@@ -96,6 +110,20 @@ public abstract class Dragon : Character, IMovable
         }
     }
 
+    public int Stones
+    {
+        get
+        {
+            return this.stones;
+        }
+
+        set
+        {
+            Utilities.ValidateInt(value, "Stones");
+            this.stones = value;
+        }
+    }
+
     public int Exp
     {
         get
@@ -106,7 +134,7 @@ public abstract class Dragon : Character, IMovable
         {
             Utilities.ValidateInt(value, "Exp");
             this.exp = value;
-            UpdateExp();                                            // Added -----------------------------------------
+            UpdateExp();
         }
     }
 
@@ -138,7 +166,9 @@ public abstract class Dragon : Character, IMovable
 
     public Boundary Boundary;
     public Transform Shot;
+    public Transform Stone;
     public Transform ShotSpawn;
+
     #endregion
 
     public override void Move()
@@ -159,8 +189,8 @@ public abstract class Dragon : Character, IMovable
     {
         InstantiateHPBar();
         DefineBoundaries();
-        UpdateScore(); // Added ------------------------------------------------------------------
-        UpdateExp();    // Added -------------------------------------------------------------------
+        UpdateScore();
+        UpdateExp();
     }
 
     private void Fire()
@@ -169,6 +199,12 @@ public abstract class Dragon : Character, IMovable
         {
             this.NextFire = Time.time + this.RateOfFire;
             Instantiate(this.Shot, this.ShotSpawn.position, this.ShotSpawn.rotation);
+        }
+        if (Input.GetButton("Fire2") && this.Stones > 0 & Time.time > this.NextFire)
+        {
+            this.NextFire = Time.time + this.RateOfFire;
+            Instantiate(this.Stone, this.ShotSpawn.position, this.ShotSpawn.rotation);
+            this.Stones--;
         }
     }
 
@@ -181,28 +217,31 @@ public abstract class Dragon : Character, IMovable
 
     private void UpdateHP()
     {
-        this.HP -= 1;
-
-        if (this.HP > this.maxHP)
+        if (Time.timeScale > 0)
         {
-            this.HP = this.maxHP;
+            this.HP -= 1;
+
+            if (this.HP > this.maxHP)
+            {
+                this.HP = this.maxHP;
+            }
         }
 
         if (this.HP < 1)
         {
-            Destroy(this.gameObject);// here goes the falling dragon animation
+            this.Destroy();
             Time.timeScale = 0.0f;
         }
     }
 
-    void OnGUI()// to be extracted in a utility class along with the hp bar components
+    void OnGUI()
     {
         GUI.BeginGroup(hpBarContainer);
         {
             GUI.DrawTexture(new Rect(0, 0, hpBarContainer.width, hpBarContainer.height), hpBarBackground, ScaleMode.StretchToFill);
             GUI.DrawTexture(new Rect(0, 0, hpBarContainer.width * this.HP / this.maxHP, hpBarContainer.height), hpBarforeground, ScaleMode.StretchToFill);
         }
-        GUI.EndGroup(); ;
+        GUI.EndGroup();
     }
 
     private void InstantiateHPBar()
@@ -227,43 +266,49 @@ public abstract class Dragon : Character, IMovable
 
     public void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.GetComponent<Package>() != null)
+        if (this.HP > 0)
         {
-            Package collectedPackage = other.gameObject.GetComponent<Package>();
-            this.HP += collectedPackage.LifePoints;
-        }
-        if (other.gameObject.GetComponent<Sheep>() != null)
-        {
-            Sheep collectedSheep = other.gameObject.GetComponent<Sheep>();
-            this.Coins += collectedSheep.Coins;
-            UpdateScore();                                                                   // Added ------------------
-        }
-        if (other.gameObject.GetComponent<NPCProjectile>() != null)
-        {
-            NPCProjectile encounteredProjectile = other.gameObject.GetComponent<NPCProjectile>();
-            this.HP -= encounteredProjectile.Damage;
-        }
-        if (other.gameObject.GetComponent<BossProjectile>() != null)
-        {
-            BossProjectile encounteredProjectile = other.gameObject.GetComponent<BossProjectile>();
-            this.HP -= encounteredProjectile.Damage;
+            if (other.gameObject.GetComponent<Package>() != null)
+            {
+                Package collectedPackage = other.gameObject.GetComponent<Package>();
+                this.HP += collectedPackage.LifePoints;
+            }
+            if (other.gameObject.GetComponent<Sheep>() != null)
+            {
+                Sheep collectedSheep = other.gameObject.GetComponent<Sheep>();
+                this.Coins += collectedSheep.Coins;
+                UpdateScore();
+            }
+            if (other.gameObject.GetComponent<NPCProjectile>() != null)
+            {
+                NPCProjectile encounteredProjectile = other.gameObject.GetComponent<NPCProjectile>();
+                this.HP -= encounteredProjectile.Damage;
+            }
+            if (other.gameObject.GetComponent<BossProjectile>() != null)
+            {
+                BossProjectile encounteredProjectile = other.gameObject.GetComponent<BossProjectile>();
+                this.HP -= encounteredProjectile.Damage;
+            }
         }
     }
 
-    public void UpdateScore()                                   // Added -----------------------------------------
+    public void UpdateScore()
     {
-       // Font myFont = (Font)Resources.Load("../../Fonts/BradBunR", typeof(Font));
-        //scoreText.font = myFont;
         scoreText.color = Color.black;
         scoreText.fontSize = 24;
         scoreText.text = "Score: " + this.Coins;
     }
 
-    public void UpdateExp()                                   // Added -------------------------------------------
+    public void UpdateExp()
     {
-       expText.color = Color.black;
+        expText.color = Color.black;
         expText.fontSize = 24;
         expText.text = "Exp: " + this.Exp;
+    }
+
+    public void Destroy()
+    {
+        Destroy(this.gameObject);
     }
 }
 

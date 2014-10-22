@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-class DragonProjectile : Projectile
+class DragonProjectile : Projectile, IDamageCalculatable
 {
     private int damage;
     private int speed;
@@ -72,7 +72,7 @@ class DragonProjectile : Projectile
         rigidbody2D.velocity = transform.right * speed;
     }
 
-    private void CalculateDamage()
+    public void CalculateDamage()
     {
         switch (DragonProjectileType)
         {

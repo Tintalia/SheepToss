@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System;
 
-class BossProjectile : Projectile
+public class BossProjectile : Projectile, IDamageCalculatable
 {
     private int damage;
     private int speed;
@@ -54,16 +54,6 @@ class BossProjectile : Projectile
         }
     }
 
-    public void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.GetComponent<Sheppard>() != null)
-        {
-            Sheppard sheppardHit = other.gameObject.GetComponent<Sheppard>();
-            sheppardHit.HP -= this.Damage;
-        }
-        Destroy(this.gameObject);
-    }
-
     public override void Move()
     {
     }
@@ -73,7 +63,12 @@ class BossProjectile : Projectile
         rigidbody2D.velocity = -transform.right * speed;
     }
 
-    private void CalculateDamage()
+    public void OnCollisionEnter2D()
+    {
+        Destroy(this.gameObject);
+    }
+
+    public void CalculateDamage()
     {
         switch (this.DragonProjectileType)
         {

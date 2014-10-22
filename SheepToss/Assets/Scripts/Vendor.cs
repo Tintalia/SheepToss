@@ -2,12 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Vendor : MonoBehaviour {
+public class Vendor : MonoBehaviour
+{
 
     private bool hideWindow = false;
     public Texture texture;
     public Rect windowRect;
     public Dragon dragon;
+    private string text;
+    private bool hasPurchased = false;
+
     void OnGUI()
     {
         GUI.backgroundColor = Color.clear;
@@ -28,7 +32,10 @@ public class Vendor : MonoBehaviour {
 
         if (hideWindow)
         {
-            //Your window code here
+            if (!hasPurchased)
+            {
+                Debug.Log("Has purchased!");
+            }
             GUI.backgroundColor = Color.black;
             windowRect = new Rect(0, 0, Screen.width - 20, Screen.height - 20);
             windowRect = GUI.Window(0, windowRect, DoMyWindow, "Shop");
@@ -36,22 +43,20 @@ public class Vendor : MonoBehaviour {
     }
     public void DoMyWindow(int windowID)
     {
-        Debug.Log(dragon.Coins + "coins");
-        // Dragon dragon = new NightFury();
-       // List<int> numberCoins = new List<int>();
+        Dragon dragon = UnityEngine.GameObject.FindGameObjectWithTag("Player").GetComponent<NightFury>();
         int stone = 0;
         if (dragon.Coins > 0)
         {
-            stone = dragon.Coins / 10;
-            Debug.Log(stone + "stone");
+            if (!hasPurchased)
+            {
+                stone = dragon.Coins / 10;
+                hasPurchased = true;
+                dragon.Coins -= stone * 10;
+                dragon.Stones = stone;
+                dragon.UpdateScore();
+                text = "You purchased " + stone + " stones!!!";
+            }
         }
-
-        //dragon.Coins = 0;
-        //dragon.UpdateScore();
-       // dragon.Exp += 1;
-       // dragon.UpdateExp();
-        Debug.Log(dragon.HP + "HP");
-        string text = "" + stone;
         GUI.Label(new Rect(10, 10, Screen.width - 20, Screen.height - 20), text);
     }
 }

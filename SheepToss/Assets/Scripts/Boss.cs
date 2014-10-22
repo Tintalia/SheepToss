@@ -2,11 +2,11 @@
 using System.Collections;
 using System.Text.RegularExpressions;
 
-public class Boss : NonPlayerCharacter, IMovable
+public class Boss : NonPlayerCharacter, IMovable, IDestructable
 {
     #region Private Members
     private float nextFire;
-    private readonly int maxHP = 1000;
+    private readonly int maxHP = 200;
     private int attack;
     private int speed;
     private int hp;
@@ -55,10 +55,10 @@ public class Boss : NonPlayerCharacter, IMovable
         }
         set
         {
-            Utilities.ValidateInt(value, "HP");
             this.hp = value;
         }
     }
+
 
     public float RateOfFire
     {
@@ -93,12 +93,14 @@ public class Boss : NonPlayerCharacter, IMovable
 
     public override void Move()
     {
-        if (UnityEngine.GameObject.FindGameObjectWithTag("Player")!=null)
+        if (UnityEngine.GameObject.FindGameObjectWithTag("Player") != null)
         {
-            if ((int)this.gameObject.rigidbody2D.position.y == (int)(UnityEngine.GameObject.FindGameObjectWithTag("Player").gameObject.rigidbody2D.position.y - 1.5f))
+
+            if (this.gameObject.rigidbody2D.position.y - 0.5f < (UnityEngine.GameObject.FindGameObjectWithTag("Player").gameObject.rigidbody2D.position.y)
+                && (this.gameObject.rigidbody2D.position.y + 0.5f > (UnityEngine.GameObject.FindGameObjectWithTag("Player").gameObject.rigidbody2D.position.y)))
             {
             }
-            else if (this.gameObject.rigidbody2D.position.y < UnityEngine.GameObject.FindGameObjectWithTag("Player").gameObject.rigidbody2D.position.y - 1.5f)
+            else if (this.gameObject.rigidbody2D.position.y < UnityEngine.GameObject.FindGameObjectWithTag("Player").gameObject.rigidbody2D.position.y)
             {
                 this.gameObject.rigidbody2D.position += new Vector2(0, 0.1f);
             }
@@ -107,15 +109,16 @@ public class Boss : NonPlayerCharacter, IMovable
                 this.gameObject.rigidbody2D.position -= new Vector2(0, 0.1f);
             }
         }
-        //float xClamp = Mathf.Clamp(this.gameObject.rigidbody2D.position.x, this.Boundary.xMin, this.Boundary.xMax);
-        //float yClamp = Mathf.Clamp(this.gameObject.rigidbody2D.position.y, this.Boundary.yMin, this.Boundary.yMax);
-
-        //this.gameObject.rigidbody2D.position = new Vector3(xClamp, yClamp, 0.0f);
     }
 
-    public void Start()
+    public void UpdateHP()
     {
-        DefineBoundaries();
+        if (this.HP < 1)
+        {
+            this.Destroy();
+            UnityEngine.GameObject.FindGameObjectWithTag("Player").GetComponent<NightFury>().HP +=
+                UnityEngine.GameObject.FindGameObjectWithTag("Player").GetComponent<NightFury>().MaxHP;
+        }
     }
 
     private void Fire()
@@ -123,42 +126,28 @@ public class Boss : NonPlayerCharacter, IMovable
         if (Time.time > this.NextFire)
         {
             this.NextFire = Time.time + this.RateOfFire;
-            Instantiate(this.Shot, this.ShotSpawn.position, this.ShotSpawn.rotation);
+            Instantiate(this.Shot, new Vector2(this.ShotSpawn.position.x, this.ShotSpawn.position.y - 1), this.ShotSpawn.rotation);
         }
+    }
+
+    public void Destroy()
+    {
+        Destroy(this.gameObject);
     }
 
     public void Update()
     {
-        this.UpdateHP();
         this.Move();
         this.Fire();
-    }
-
-    private void UpdateHP()
-    {
-        this.HP -= 1;
-
-        if (this.HP > this.maxHP)
-        {
-            this.HP = this.maxHP;
-        }
-
-        if (this.HP < 1)
-        {
-            Destroy(this.gameObject);// here goes the falling dragon animation
-            Time.timeScale = 0.0f;
-        }
-    }
-
-    private void DefineBoundaries()
-    {
-        this.Boundary.xMin = -28;
-        this.Boundary.xMax = -12;
-        this.Boundary.yMin = -3;
-        this.Boundary.yMax = 5;
+        this.UpdateHP();
     }
 
     public void OnCollisionEnter2D(Collision2D other)
     {
+        if (other.gameObject.GetComponent<DragonProjectile>() != null)
+        {
+            DragonProjectile encounteredProjectile = other.gameObject.GetComponent<DragonProjectile>();
+            this.HP -= encounteredProjectile.Damage;
+        }
     }
 }

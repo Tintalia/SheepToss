@@ -7,18 +7,24 @@ public class HelpButton : MonoBehaviour
     private bool hideWindow = false;
     public Texture texture;
     public Texture coinStar;
-    public float x = 120f;
-    public float y = 120f;
-    public float width = 20f;
-    public float height = 20f;
+    private float xCoin = Screen.width / 2 + 80;
+    private float yCoin = 5;
+    private float widthCoin = 40;
+    public float heightCoin = 40;
+    private float xHelpButton = Screen.width - 40;
+    private float yHelpButton = Screen.height - 40;
+    private float widthHelpButton = 40;
+    public float heightHelpButton = 40;
     public Rect windowRect;
+    private float widthWindowRect = Screen.width - 20;
+    public float heightWindowRect = Screen.height - 20;
 
     public void OnGUI()
     {
         GUI.backgroundColor = Color.clear;
-        GUI.Button(new Rect(Screen.width / 2 + 80, 5, 40, 40), coinStar);
+        GUI.Button(new Rect(xCoin, yCoin, widthCoin, heightCoin), coinStar);
 
-        if (GUI.Button(new Rect(Screen.width - 40, Screen.height - 40, 40, 40), texture))
+        if (GUI.Button(new Rect(xHelpButton, yHelpButton, widthHelpButton, heightHelpButton), texture))
         {
             //When button is pressed it toggles the hideWindow boolean
             if (hideWindow)
@@ -37,8 +43,8 @@ public class HelpButton : MonoBehaviour
         if (hideWindow)
         {
             GUI.backgroundColor = Color.black;
-            windowRect = new Rect(0, 0, Screen.width - 20, Screen.height - 20);
-           // GUI.Box(new Rect(0, 0, Screen.width - 20, Screen.height - 20), "Menu");
+            windowRect = new Rect(0, 0, widthWindowRect, heightWindowRect);
+            //GUI.Box(new Rect(0, 0, Screen.width - 20, Screen.height - 20), "Menu");
             windowRect = GUI.Window(0, windowRect, DoMyWindow, "Help");
 
         }

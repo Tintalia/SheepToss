@@ -61,6 +61,8 @@
      <Compile Include="Assets\Scripts\HelpButton.cs" />
      <Compile Include="Assets\Scripts\Hookfang.cs" />
      <Compile Include="Assets\Scripts\ICollectable.cs" />
+     <Compile Include="Assets\Scripts\IDamageCalculatable.cs" />
+     <Compile Include="Assets\Scripts\IDestructable.cs" />
      <Compile Include="Assets\Scripts\ILivable.cs" />
      <Compile Include="Assets\Scripts\IMovable.cs" />
      <Compile Include="Assets\Scripts\Item.cs" />
@@ -84,6 +86,7 @@
      <Compile Include="Assets\Scripts\Sheppard.cs" />
      <Compile Include="Assets\Scripts\SheppardSpawn.cs" />
      <Compile Include="Assets\Scripts\Skill.cs" />
+     <Compile Include="Assets\Scripts\Stone.cs" />
      <Compile Include="Assets\Scripts\TerrainObstacle.cs" />
      <Compile Include="Assets\Scripts\Tower.cs" />
      <Compile Include="Assets\Scripts\Utilities.cs" />
